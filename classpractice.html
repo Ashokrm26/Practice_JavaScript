@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Demo</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="main-heading">Welcome to DOM Playground</h1>
+  <p class="description">Click the buttons below to explore the DOM!</p>
+
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="changeHeading()">Change Heading</button>
+
+  <br><br>
+
+  <button onclick="createNewItem()">Add New Item</button>
+  <button onclick="removeLastItem()">Remove Last Item</button>
+
+  <ul id="itemList">
+    <li class="item">Item 1</li>
+    <li class="item">Item 2</li>
+    <li class="item">Item 3</li>
+  </ul>
+
+  <button onclick="toggleHighlight()">Toggle Highlight</button>
+
+  <br><br>
+
+  <button id="showInfoBtn">Show Info</button>
+  <p id="infoBox"></p>
+
+  <script>
+    // Change heading text
+    function changeHeading() {
+      const input = document.getElementById("nameInput").value;
+      const heading = document.getElementById("main-heading");
+      heading.textContent = "Hello, " + input + "!";
+      heading.style.color = "green";
+    }
+
+    // Create new list item
+    function createNewItem() {
+      const ul = document.getElementById("itemList");
+      const newItem = document.createElement("li");
+      newItem.textContent = "Item " + (ul.children.length + 1);
+      newItem.classList.add("item");
+      ul.appendChild(newItem);
+    }
+
+    // Remove last list item
+    function removeLastItem() {
+      const ul = document.getElementById("itemList");
+      if (ul.lastChild) {
+        ul.removeChild(ul.lastChild);
+      }
+    }
+
+    // Toggle highlight class on all list items
+    function toggleHighlight() {
+      const items = document.getElementsByClassName("item");
+      for (let item of items) {
+        item.classList.toggle("highlight");
+      }
+    }
+
+    // Event Listener and DOM Traversal Example
+    document.getElementById("showInfoBtn").addEventListener("click", function() {
+      const heading = document.getElementById("main-heading");
+      const info = document.getElementById("infoBox");
+      info.innerHTML = `
+        <strong>Heading Info:</strong><br>
+        Text: ${heading.textContent}<br>
+        Color: ${heading.style.color}<br>
+        Parent Tag: ${heading.parentElement.tagName}<br>
+        Number of Items in List: ${document.getElementById("itemList").children.length}
+      `;
+    });
+  </script>
+
+</body>
+</html>
